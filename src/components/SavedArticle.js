@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid } from 'semantic-ui-react';
+import { Message, Button, Grid, Label } from 'semantic-ui-react';
+import moment from 'moment';
 
 class SavedArticle extends Component {
   render(){
@@ -12,12 +13,15 @@ class SavedArticle extends Component {
                 {this.props.title}
               </a>
             </Message.Header>
-            <p>
-              Saved: {this.props.date}
-            </p>
+            <Label ribbon color='blue'>
+              Published: {this.props.date_published}
+            </Label> 
+            <Label pointing color='teal'>
+              Saved: {moment(this.props.created_at).format('MM/DD/YYYY')}
+            </Label>
           </Grid.Column>
           <Grid.Column width={2}>
-            <Button content="Delete"/>
+            <Button negative onClick={() => this.props.removeSaved(this.props.article_id)} content="Delete"/>
           </Grid.Column>
         </Grid>
       </Message>

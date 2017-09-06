@@ -1,9 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const app = express();
-const port = process.env.PORT || 8080;
+app.use(morgan('dev'));
+
+const articleRoutes = require('./controllers/article.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,15 +17,33 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
-// API Routes
-// =============================================================
 app.get("/api/test", (req, res) => res.json({id:1, first:'hello', last:'world'}));
+app.use('/api/saved', articleRoutes);
 
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-// Starts the server to begin listening
+// database configuration with mongoose
+mongoose.Promise = Promise;
+mongoose.connect('localhost');
+const db = mongoose.connection;
+db.on('error', error => console.log('Mongoose Error: ', error));
+db.once('open', () => console.log('Mongoose connection successful.'));
+
+// Starts the server to begin listening, and sockets!
 // =============================================================
-app.listen(port, () => console.log("App listening on PORT " + port));
+const port = process.env.PORT || 8080;
+
+const server = app.listen(port, () => console.log("App listening on PORT " + port));
+const io = require('socket.io').listen(server);
+
+io.sockets.on('connection', socket => {
+	console.log('A user connected...');
+	socket.on('disconnect', () => console.log('A user disconnected.'));
+	socket.on('refresh', msg => {
+		console.log('refresh rcvd.')
+		socket.broadcast.emit('refresh', msg)
+	})
+});

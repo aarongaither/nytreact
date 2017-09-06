@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid } from 'semantic-ui-react';
+import { Message, Button, Grid, Label } from 'semantic-ui-react';
 
 class SearchedArticle extends Component {
   render(){
@@ -12,12 +12,14 @@ class SearchedArticle extends Component {
                 {this.props.title}
               </a>
             </Message.Header>
-            <p>
+            <Label ribbon color='blue'>
               Published: {this.props.date}
-            </p>
+            </Label>
           </Grid.Column>
           <Grid.Column width={2}>
-            <Button content="Save"/>
+          {this.props.isSaved ? <Button positive content="Saved!" /> :
+            <Button onClick={() =>
+              this.props.handleSave(this.props.article_id)} content="Save"/>}
           </Grid.Column>
         </Grid>
       </Message>
