@@ -27,7 +27,7 @@ app.get('*', (req, res) => {
 
 // database configuration with mongoose
 mongoose.Promise = Promise;
-mongoose.connect('localhost');
+mongoose.connect('mongodb://heroku_04vpf2zk:k5vmv91ljrbvjor3c1n7bijqk7@ds129024.mlab.com:29024/heroku_04vpf2zk');
 const db = mongoose.connection;
 db.on('error', error => console.log('Mongoose Error: ', error));
 db.once('open', () => console.log('Mongoose connection successful.'));
