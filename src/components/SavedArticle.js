@@ -13,11 +13,17 @@ class SavedArticle extends Component {
                 {this.props.title}
               </a>
             </Message.Header>
-            <Label ribbon color='blue'>
-              Published: {this.props.date_published}
+            <Label pointing color='blue'>
+              Published: 
+              <Label.Detail>
+              {this.props.date_published}
+              </Label.Detail>
             </Label> 
             <Label pointing color='teal'>
-              Saved: {moment(this.props.created_at).format('MM/DD/YYYY')}
+              Saved: 
+              <Label.Detail>
+              {moment(this.props.created_at).format('MM/DD/YYYY')}
+              </Label.Detail>
             </Label>
           </Grid.Column>
           <Grid.Column width={2}>
