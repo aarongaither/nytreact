@@ -12,7 +12,7 @@ class SearchedArticle extends Component {
                 {this.props.title}
               </a>
             </Message.Header>
-            <Label ribbon color='blue'>
+            <Label pointing color='blue'>
               Published: {this.props.date}
             </Label>
           </Grid.Column>
