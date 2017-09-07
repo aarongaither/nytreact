@@ -5,8 +5,8 @@ class SearchedArticle extends Component {
   render(){
     return (
       <Message info>
-        <Grid>
-          <Grid.Column width={14}>
+        <Grid container>
+          <Grid.Column width={13}>
             <Message.Header>
               <a href={this.props.url}>
                 {this.props.title}
@@ -16,7 +16,7 @@ class SearchedArticle extends Component {
               Published: {this.props.date}
             </Label>
           </Grid.Column>
-          <Grid.Column width={2}>
+          <Grid.Column width={3}>
           {this.props.isSaved ? <Button positive content="Saved!" /> :
             <Button onClick={() =>
               this.props.handleSave(this.props.article_id)} content="Save"/>}

@@ -6,8 +6,8 @@ class SavedArticle extends Component {
   render(){
     return (
       <Message positive>
-        <Grid>
-          <Grid.Column width={14}>
+        <Grid container>
+          <Grid.Column width={13}>
             <Message.Header>
               <a href={this.props.url}>
                 {this.props.title}
@@ -26,7 +26,7 @@ class SavedArticle extends Component {
               </Label.Detail>
             </Label>
           </Grid.Column>
-          <Grid.Column width={2}>
+          <Grid.Column width={3}>
             <Button negative onClick={() => this.props.removeSaved(this.props.article_id)} content="Delete"/>
           </Grid.Column>
         </Grid>
